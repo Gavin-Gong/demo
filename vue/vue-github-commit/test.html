@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Table Demo</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+    <div id="demo">
+       <h1> Vue GitHub Commit</h1>
+       <template v-for="branch in branches">
+           <input type="radio" 
+           :id="branch" 
+           :value="branch"
+           name="branch"
+           v-model="currentBranch">
+           <label for="branch">{{ branch }}</label>
+       </template>
+
+       <p>vuejs/vue@{{currentBranch}}</p>
+       <ul>
+           <li v-for="record in commits">
+               <a :href="record.html_url">
+                   {{record.sha.slice(0,7)}}
+               </a> - 
+               <span>
+                   {{record.commit.message | truncate}}
+               </span><br>
+               by <span>
+                   {{record.commit.author.name}}
+               </span> at
+               <span>
+                   {{record.commit.author.date | formatData}}
+               </span>
+           </li>
+       </ul>
+    </div>
+
+
+
+    <script>
+    var apiURL = 'https://api.github.com/repos/vuejs/vue/commits?per_page=3&sha=';
+        var demo = new Vue({
+            el: "#demo",
+
+            data: {
+                branches: ['master', 'dev'],
+                currentBranch: "master",
+                commits: null,  
+            },
+
+            filters: {
+                truncate: function(v) {
+                    var newline = v.indexOf('\n');
+                    return newline > 0 ? v.slice(0, newline) : v;
+                },
+                formatData: function (v) {
+                    return v.replace(/T|Z/g, " ");
+                }
+            },
+
+            methods: {
+                fetchData: function() {
+                    var xhr = new XMLHttpRequest();
+                    var self = this;
+                    xhr.open('GET', apiURL + self.currentBranch);
+                    xhr.onload = function () {
+                        self.commits = JSON.parse(xhr.responseText)
+                    };
+                    xhr.send();
+                }
+            },
+            created: function () {
+                this.fetchData();
+            },
+            watch: function () {
+                currentBranch: "fetchData"
+            },
+            
+        })
+    </script>
+</body>
+</html>
