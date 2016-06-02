@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Table Demo</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-on:keyup.enter="addToDo" v-model="newToDo">
+        <ul>
+            <li v-for="todo in todos">
+                <span>{{todo.text}}</span>
+                <button v-on:click="removeToDo($index)">X</button>
+            </li>
+        </ul>
+    </div>
+    <script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            newToDo: "",
+            todos: [{
+                text: 'Add some list'
+            }]
+        },
+        methods: {
+            addToDo: function() {
+                var text = this.newToDo.trim();
+                if(text) {
+                     this.todos.push({
+                    text,
+                    text
+                });
+                }
+                this.newToDo = "";
+            },
+
+            removeToDo: function(index) {
+                this.todos.splice(index, 1);
+            }
+        }
+    })
+    </script>
+</body>
+
+</html>

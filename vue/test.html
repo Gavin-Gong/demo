@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+        /* 必需 */
+    .expand-transition {
+      transition: all .3s ease;
+      height: 30px;
+      padding: 10px;
+      background-color: #eee;
+      overflow: hidden;
+}
+
+/* .expand-enter 定义进入的开始状态 */
+/* .expand-leave 定义离开的结束状态 */
+    .expand-enter, .expand-leave {
+      height: 0;
+      padding: 0 10px;
+      opacity: 0;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="demo">
+        <my-component></my-component>
+    </div>
+</body>
+
+<script>
+// 组件构造器
+var MyComponent = Vue.extend({
+    template: "<div>Hello</div>"
+})
+
+// 实例
+Vue.component('my-component', MyComponent);
+
+new Vue({
+    el: '#demo'
+})
+</script>
+
+</html>
