@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <script src="test.js"></script>
+    <style>
+    body {
+        font-family: Helvetica Neue, Arial, sans-serif;
+        font-size: 14px;
+        color: #444;
+    }
+    
+    table {
+        border: 2px solid #42b983;
+        border-radius: 3px;
+        background-color: #fff;
+    }
+    
+    th {
+        background-color: #42b983;
+        color: rgba(255, 255, 255, 0.66);
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -user-select: none;
+    }
+    
+    td {
+        background-color: #f9f9f9;
+    }
+    
+    th,
+    td {
+        min-width: 120px;
+        padding: 10px 20px;
+    }
+    
+    th.active {
+        color: #fff;
+    }
+    
+    th.active .arrow {
+        opacity: 1;
+    }
+    
+    .arrow {
+        display: inline-block;
+        vertical-align: middle;
+        width: 0;
+        height: 0;
+        margin-left: 5px;
+        opacity: 0.66;
+    }
+    
+    .arrow.asc {
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-bottom: 4px solid #fff;
+    }
+    
+    .arrow.dsc {
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 4px solid #fff;
+    }
+    
+    #search {
+        margin-bottom: 10px;
+    }
+    </style>
+</head>
+
+<body>
+   <table id="table">
+     <thead>
+       <tr>
+         <td v-for="key in columns" @click="sortBy(key)">
+           {{key}}
+         </td>
+       </tr>
+     </thead>
+     <tbody>
+       <tr v-for="entry in dataCollection
+       | orderBy sortKey sortOrders">
+         <td v-for="key in columns ">
+           {{entry[key]}}
+         </td>
+       </tr>
+     </tbody>
+   </table>
+</body>
+<script>
+  var vm = new Vue({
+    el:'#table',
+    data: {
+        columns: ['name', 'power'],
+        dataCollection: [
+          { name: 'Chuck Norris', power: Infinity },
+          { name: 'Bruce Lee', power: 9000 },
+          { name: 'Jackie Chan', power: 7000 },
+          { name: 'Jet Li', power: 8000 }
+        ],
+        sortOrders: 1,
+      },
+      methods: {
+        sortBy: function(key) {
+          this.sortKey = key;
+          this.sortOrders = -this.sortOrders;
+          // this.sortOrders[key] = this.sortOrders[key] * -1;
+        }
+      } 
+  })
+</script>
+</html>
