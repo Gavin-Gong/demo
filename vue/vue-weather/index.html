@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+	<div id="demo">
+		<input type="text" v-model="cityName" placeholder="beijing" value="beijing">
+		<button @click="fetchData">Fetch Data</button>
+	</div>
+    <script>
+		var apiURL = 'http://apis.baidu.com/heweather/weather/free'
+    	var vm = new Vue({
+    		el: "#demo",
+    		data: {
+    			cityName: "",
+    		},
+    		methods: {
+    			fetchData: function() {
+    				var xhr = new XMLHttpRequest()
+    				xhr.open("GET", apiURL + "?city=" + this.cityName)
+    				xhr.setRequestHeader('apikey', '90fd79ea108aea2f4429dece83ac9192')
+    				xhr.onload = function() {
+    					console.log(typeof JSON.parse(xhr.responseText)['HeWeather data service 3.0'])
+    					console.log(typeof xhr.responseText)
+    				}
+    				xhr.send()
+
+
+    			}
+    		}
+    	})
+    </script>
+
+</html>
