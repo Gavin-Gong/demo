@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		@keyframes animate {
+			0% {
+				border-radius: 0 0 0 0;
+				transform: rotate(0deg);
+				margin-left: 0;
+			}
+			25% {
+				border-radius:50% 0 0 0;
+				transform: rotate(45deg);
+			}
+			50% {
+				border-radius:50% 50% 0 0;
+				transform: rotate(90deg);
+			}
+			75% {
+				border-radius:50% 50% 50% 0;
+				transform: rotate(135deg);
+			}
+			100% {
+				border-radius:50% 50% 50% 50%;
+				transform: rotate(180deg);
+				margin-left: 100px;
+			}
+		}		
+		.box {
+			width: 50px;
+			height: 50px;
+			/*border-radius: 50%;*/
+			background: #f44336;
+			animation-name: animate;
+			animation-duration: 2s;
+			animation-iteration-count: 1;
+			animation-timing-function: ease-out;
+			animation-direction: alternate;
+			animation-direction: normal;
+			animation-fill-mode: backwards;
+		}
+
+
+	</style>
+</head>
+<body>
+<div class="box"></div>
+</html>
