@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<script type="text/javascript">
+	let loader = new Worker('myworker.js');
+	loader.onmessage = function(e) {
+		console.log(e.data);
+		loader.terminate();
+	}
+	loader.postMessage('msg from worker');
+</script>
+</body>
+</html>
